@@ -75,7 +75,7 @@ npm start
 
 ![Frontpage Screenshot](screenshots/frontpage.png)
 ![Login Screenshot](screenshots/loginpage.png)
-![Register Screenshot](screenshots/register.png)
+![Register Screenshot](screenshots/registerpage.png)
 ![Test Page Screenshot](screenshots/testpage.png)
 ![Feedback Screenshot](screenshots/feedbackpage.png)
 

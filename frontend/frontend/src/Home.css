@@ -1,0 +1,46 @@
+body {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .logo {
+    width: 80px;
+    height: auto;
+  }
+  
+  .highlight {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .highlight::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background-color: #fbbc04;
+    z-index: -1;
+  }
+  
+  .btn-custom {
+    background-color: #124e66;
+    color: white;
+    border: none;
+  }
+  
+  .btn-custom:hover {
+    background-color: #0f3e52;
+  }
+  
+  .welcome-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  

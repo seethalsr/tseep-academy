@@ -51,7 +51,7 @@ exports.loginUser = async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "2h" }
     );
-
+    console.log(token)
     res.status(200).json({
       message: "Login successful ✅",
       token,

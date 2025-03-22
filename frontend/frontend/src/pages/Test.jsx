@@ -56,6 +56,7 @@ const questions = [
 
 const Test = () => {
   const [answers, setAnswers] = useState({});
+  const [currentQuestion, setCurrentQuestion] = useState(0); // ✅ Add this line
   const navigate = useNavigate();
 
   const handleOptionChange = (qIndex, option) => {
@@ -73,35 +74,100 @@ const Test = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white shadow-md rounded">
-      <h1 className="text-2xl font-bold mb-6">MCQ Test</h1>
-      {questions.map((q, i) => (
-        <div key={i} className="mb-4">
-          <p className="font-medium">{i + 1}. {q.question}</p>
-          <div className="grid grid-cols-2 gap-2 mt-2">
-            {q.options.map((opt, idx) => (
-              <label key={idx} className="flex items-center gap-2">
-                <input
-                  type="radio"
-                  name={`q${i}`}
-                  value={opt}
-                  onChange={() => handleOptionChange(i, opt)}
-                  className="accent-blue-500"
-                />
+    <div className="d-flex" style={{ height: "100vh", background: "#f7f9fc" }}>
+    {/* Sidebar */}
+    <div className="p-4 border-end" style={{ width: "250px", background: "#fff" }}>
+      <div className="mb-4 d-flex align-items-center">
+        <h5 className="m-0 fw-bold">TSEEP</h5>
+      </div>
+
+      <div className="d-flex flex-wrap gap-2">
+        {questions.map((_, idx) => (
+          <button
+            key={idx}
+            className={`btn btn-sm ${
+              answers[idx] ? "btn-success" : "btn-outline-secondary"
+            }`}
+            style={{ width: "40px", height: "40px" }}
+          >
+            {idx + 1}
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-4">
+        <small>
+          <div><span className="badge bg-success me-2">&nbsp;</span>Attended</div>
+          <div><span className="badge bg-secondary me-2">&nbsp;</span>Not Attended</div>
+          <div><span className="badge bg-light border me-2">&nbsp;</span>Yet to Attend</div>
+        </small>
+      </div>
+    </div>
+
+    {/* Main Content */}
+    <div className="flex-grow-1 p-4">
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h4 className="fw-bold">
+          Asses Your <span className="text-primary">Intelligence</span>
+        </h4>
+        <div className="d-flex align-items-center gap-3">
+          <span className="text-warning fw-bold">🕒 5 Min</span>
+          <button className="btn btn-outline-danger btn-sm">Logout</button>
+        </div>
+      </div>
+
+      <div className="bg-white shadow p-4 rounded">
+        <h5 className="mb-3">
+          {currentQuestion + 1}. {questions[currentQuestion].question}
+        </h5>
+
+        <div>
+          {questions[currentQuestion].options.map((opt, i) => (
+            <div className="form-check mb-2" key={i}>
+              <input
+                className="form-check-input"
+                type="radio"
+                name={`q${currentQuestion}`}
+                value={opt}
+                checked={answers[currentQuestion] === opt}
+                onChange={() => handleOptionChange(currentQuestion, opt)}
+                id={`q${currentQuestion}_opt${i}`}
+              />
+              <label
+                className="form-check-label"
+                htmlFor={`q${currentQuestion}_opt${i}`}
+              >
                 {opt}
               </label>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      ))}
-      <button
-        onClick={handleSubmit}
-        className="mt-6 w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
-      >
-        Submit Test
-      </button>
+
+        {/* Navigation buttons */}
+        <div className="d-flex justify-content-between mt-4">
+          <button
+            className="btn btn-outline-secondary"
+            disabled={currentQuestion === 0}
+            onClick={() => setCurrentQuestion(currentQuestion - 1)}
+          >
+            ← Previous
+          </button>
+          {currentQuestion < questions.length - 1 ? (
+            <button
+              className="btn btn-primary"
+              onClick={() => setCurrentQuestion(currentQuestion + 1)}
+            >
+              Next →
+            </button>
+          ) : (
+            <button className="btn btn-success" onClick={handleSubmit}>
+              Submit Test
+            </button>
+          )}
+        </div>
+      </div>
     </div>
+  </div>
   );
 };
-
 export default Test;
